@@ -1,4 +1,5 @@
 
+
 // simple injection
 Inject.replicate( data.menudata, "menuitem" );
 
@@ -25,5 +26,7 @@ setTimeout(function() {
 	Inject.rere( data.second, orig )
 }, 3000)
 
+
+$(document.body).removeClass("hid");
 
 
