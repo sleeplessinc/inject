@@ -1,40 +1,45 @@
 <html>
-	<head>
-		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-		<script src=inject.js></script>
-		<script src=demo.js></script>
-	</head>
 
 	<body>
-		<h1> Example #1 </h1>
+		<h1> Example Page #1 </h1>
 
-		<style>
-			.hid { visibility: hidden; }
-		</style>
+		All of these example pages present the same data found in data.js, however
+		each page is very different.
+		The only thing that changes is the html and the css.
+		The javascript code that injects the data into the page is 100% the same.
 
-		<h2 id=title class=hid>__title__</h2>
+		<h2>Simple Injection</h2>
 
-
-		<div id=menu>
-			<span class=hid id=menuitem data="__page__-__label__">&nbsp;<a href="__page__">__label__</a>&nbsp;</span>
-		</div>
+		These 2 links are injected from JSON data:
+		<ul>
+			<li id=menuitem><a href="__page__">__label__</a>
+		</ul>
 
 
 		<h2>Some Interesting Data</h2>
 
+		The data in this table is injected once at on page load, and then changed by
+		resetting and re-injecting a different set of data a few seconds later.
 		<p>
-		The list 3 items displayed injected into the page after it is loaded.
-		The data comes from demo.js
-		</p>
 
-		<div id=container>
-			<div id=protodiv class=hid>
-				<div>__heading__</div>
-				<div>__name__</div>
-				<div>__when__</div>
-				<hr>
-			</div>
-		</div>
+		<table border=1>
+			<tr >
+				<td><b>Column 1</b></td>
+				<td><b>Column 2</b></td>
+				<td><b>Column 3</b></td>
+			</tr>
+			<tr id=protodiv>
+				<td>__heading__</td>
+				<td>__name__</td>
+				<td>__when__</td>
+			</tr>
+		</table>
+
+		<h2>Nested Injections</h2>
+
+		This section demonstrates how to replicate data within another replicated
+		section.  In other words, recursive replication.  This is done with a little
+		assistance of jquery (see demo.js).
 
 		<div id=sec_tmpl>
 			<h3>__section__</h3>
@@ -45,5 +50,10 @@
 
 
 	</body>
+
+		<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+		<script src=inject.js></script>
+		<script src=data.js></script>
+		<script src=demo.js></script>
 
 </html>

@@ -22,58 +22,58 @@ IN THE SOFTWARE.
 */
 
 
-ProtoDiv = {}
+Inject = {}
 
-ProtoDiv.elem = function( v ) {
-	if( typeof v === "string")
-		return document.getElementById(v);
+Inject.elem = function( v ) {
+	if( typeof v === "string" )
+		return document.getElementById( v );
 	if( v instanceof HTMLElement )
 		return v;
 	return document.body;
 }
 
-ProtoDiv.substitute = function(s, hash) {
-	for(var key in hash) {
-		if( typeof hash[key] === "string" ) {
-			re = new RegExp("__"+key+"__", "g")
-			s = s.replace(re, hash[key])
+Inject.substitute = function(s, hash) {
+	for( var key in hash ) {
+		if( typeof hash[ key ] === "string" ) {
+			re = new RegExp( "__"+key+"__", "g" );
+			s = s.replace( re, hash[ key ] );
 		}
 	}
-	return s
+	return s;
 }
 
-ProtoDiv.inject = function( elem, hash ) {
+Inject.inject = function( elem, hash ) {
 
-	var e = ProtoDiv.elem( elem )
+	var e = Inject.elem( elem );
 
-	e.innerHTML = ProtoDiv.substitute( e.innerHTML, hash )
+	e.innerHTML = Inject.substitute( e.innerHTML, hash );
 
-	for(i = 0; i < e.attributes.length; i++) {
-		a = e.attributes[i]
+	for( var i = 0; i < e.attributes.length; i++ ) {
+		a = e.attributes[ i ];
 		var x = a.textContent ? 'textContent' : 'value';
-		a[x] = ProtoDiv.substitute(a[x], hash)    
+		a[ x ] = Inject.substitute( a[ x ], hash );
 	}
 
-	return e
+	return e;
 }
 
 
-ProtoDiv.replicate = function( arr, orig, cb ) {
+Inject.replicate = function( arr, orig, cb ) {
 
-	if(!(arr instanceof Array))
-		arr = [arr]
+	if( !( arr instanceof Array ) )
+		arr = [ arr ];
 
 	if( typeof orig === "function" ) {
 		cb = orig;
 		orig = document.body;
 	}
 	else {
-		orig = ProtoDiv.elem( orig );
+		orig = Inject.elem( orig );
 	}
 
-	var sib = orig.nextSibling 	// can be null
+	var sib = orig.nextSibling; 	// can be null
 	orig.sib = sib;
-	var mom = orig.parentNode
+	var mom = orig.parentNode;
 	orig.mom = mom;
 
 	orig.remove();		// take out of dom
@@ -81,28 +81,28 @@ ProtoDiv.replicate = function( arr, orig, cb ) {
 	orig.clones = [];	// for storing refs to the clones
 
 	var l = arr.length
-	for(var i = 0; i < l; i++) {
+	for( var i = 0; i < l; i++ ) {
 
-		var a = arr[i]
+		var a = arr[i];
 
-		var e = orig.cloneNode(true)
-		delete e.id
+		var e = orig.cloneNode( true );
+		delete e.id;
 
 		orig.clones.push( e );
 
-		mom.insertBefore(e, sib)
+		mom.insertBefore(e, sib);
 
-		ProtoDiv.inject(e, a)
+		Inject.inject(e, a);
 
 		if( cb ) {
 			cb( e, a );
 		}
 	}
 
-	return orig
+	return orig;
 }
 
-ProtoDiv.reset = function( orig ) {
+Inject.reset = function( orig ) {
 
 	if( ! orig )
 		return;
@@ -116,17 +116,17 @@ ProtoDiv.reset = function( orig ) {
 		return;
 	
 	// replace original element
-	orig.mom.insertBefore( orig, clones[0] );
+	orig.mom.insertBefore( orig, clones[ 0 ] );
 
 	// remove the clones
 	for( var i = 0; i < l; i++ ) {
-		clones[i].remove();
+		clones[ i ].remove();
 	}
 }
 
-ProtoDiv.rere = function( arr, orig, cb ) {
-    ProtoDiv.reset( orig )
-    ProtoDiv.replicate( arr, orig, cb )
+Inject.rere = function( arr, orig, cb ) {
+    Inject.reset( orig );
+    Inject.replicate( arr, orig, cb );
 }
 
 
