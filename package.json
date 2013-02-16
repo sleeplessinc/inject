@@ -1,5 +1,5 @@
 {
-	"name": "inject",
+	"name": "injector",
 	"version": "1.0.0",
 	"description" : "Javascript widget for displaying dynamic data in the browser.",
 	"author": "Joe Hitchens <joe@sleepless.com> (sleepless.com)",
