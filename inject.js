@@ -126,7 +126,7 @@ Inject.reset = function( orig ) {
 
 Inject.rere = function( arr, orig, cb ) {
     Inject.reset( orig );
-    Inject.replicate( arr, orig, cb );
+    return Inject.replicate( arr, orig, cb );
 }
 
 
