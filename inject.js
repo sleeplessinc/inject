@@ -119,6 +119,7 @@ Inject.reset = function( orig ) {
 	orig.mom.insertBefore( orig, clones[ 0 ] || null );
 
 	// remove the clones
+	var l = clones.length;
 	for( var i = 0; i < l; i++ ) {
 		clones[ i ].remove();
 	}
