@@ -111,12 +111,12 @@ Inject.reset = function( orig ) {
 	if( ! clones )
 		return;
 
-	var l = clones.length;
-	if( l < 1 )
-		return;
+	//var l = clones.length;
+	//if( l < 1 )
+	//	return;
 	
 	// replace original element
-	orig.mom.insertBefore( orig, clones[ 0 ] );
+	orig.mom.insertBefore( orig, clones[ 0 ] || null );
 
 	// remove the clones
 	for( var i = 0; i < l; i++ ) {
